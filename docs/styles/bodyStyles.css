@@ -1,0 +1,43 @@
+/* Font Family by Google Fontes
+font-family: 'Source Code Pro', monospace;
+font-family: 'Libre Barcode 39', cursive; */
+
+html,body {
+    /*dimensions*/
+    margin: 0px;
+    padding: 0px;
+    width: 100%; 
+    min-width: 1023px;   
+    height: 100%;
+    min-height: 700px;
+    max-height: 1080px;
+    
+    /*texto*/
+    color: white;
+    font-family: 'Source Code Pro', monospace;
+    position: relative;
+
+    /*outros*/
+    scroll-behavior: smooth;
+}
+
+/* Barra de Rolagem*/
+::-webkit-scrollbar { /*barra (geral)*/
+    background-color: rgba(0, 0, 0, 0.5); 
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-button { /*botão top-bottom*/
+    background-color: rgba(77, 77, 77, 0.5); 
+    height: 25px; 
+    width: 25px;
+} 
+
+::-webkit-scrollbar-thumb { /*barra scroll*/
+    background-color: rgba(0, 255, 106, 0.3)
+} 
+
+::-webkit-scrollbar-corner { /*canto*/
+    background-color: rgba(0, 0, 0, 0.5) 
+} 
