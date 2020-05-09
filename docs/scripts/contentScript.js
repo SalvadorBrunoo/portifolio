@@ -16,16 +16,16 @@ var listHover
 function changeLanguage() {
     if(lang == "ptbr") {
         //---------------Texto Links PT-----------------//
-        listFull=["início","sobre","curriculum","projetos","contatos"] //divs
-        listAbrev=["I","SB","CV","PJ", "CT"] //abreviação para o menu
-        listHover=["início","sobre","cv","proj","cont"] //texto para efeito hover
+        listFull=["início","projetos","sobre","curriculum","contatos"] //divs
+        listAbrev=["I","PJ","SB","CV","CT"] //abreviação para o menu
+        listHover=["início","proj","sobre","cv","cont"] //texto para efeito hover
     }
     
     if(lang == "eng") {
     //---------------Texto Links ENG-----------------//
-        listFull=["home","about","curriculum","projects","contacts"] //divs
-        listAbrev=["H","AB","CV","PJ", "CT"] //abreviação para o menu
-        listHover=["home","about","cv","proj","cont"] //texto para efeito hover
+        listFull=["home","projects","about","curriculum","contacts"] //divs
+        listAbrev=["H","PJ","AB","CV", "CT"] //abreviação para o menu
+        listHover=["home","proj","about","cv","cont"] //texto para efeito hover
     }
 }
 
