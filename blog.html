@@ -42,6 +42,9 @@
                         throw new Error(`Failed to fetch posts.json: ${response.statusText}`);
                     }
                     const postsList = await response.json();
+                    if (!postsList.posts || !Array.isArray(postsList.posts)) {
+                        throw new Error('Invalid posts.json format: "posts" property is missing or not an array');
+                    }
                     return postsList.posts.map(post => `posts/${post}`);
                 }
 
