@@ -37,14 +37,23 @@
                 .then(response => response.json())
                 .then(data => {
                     // Populate section fields
-                    document.querySelector("title").textContent = data.section.title;
-                    document.querySelector("h1").textContent = data.section.title;
-                    document.querySelector("p strong").nextSibling.textContent = ` ${data.section.date}`;
-                    document.querySelector(".post-image").src = data.section.imagePath;
-                    document.querySelector("section p:last-of-type").textContent = data.section.summary;
+                    const titleElement = document.querySelector("title");
+                    const h1Element = document.querySelector("h1");
+                    const dateElement = document.querySelector("p strong");
+                    const postImage = document.querySelector(".post-image");
+                    const summaryElement = document.querySelector("section p:last-of-type");
+
+                    if (titleElement) titleElement.textContent = data.section.title;
+                    if (h1Element) h1Element.textContent = data.section.title;
+                    if (dateElement && dateElement.nextSibling) {
+                        dateElement.nextSibling.textContent = ` ${data.section.date}`;
+                    }
+                    if (postImage) postImage.src = data.section.imagePath;
+                    if (summaryElement) summaryElement.textContent = data.section.summary;
 
                     // Populate article content
-                    document.querySelector("article pre").textContent = data.article;
+                    const articlePre = document.querySelector("article pre");
+                    if (articlePre) articlePre.textContent = data.article;
                 })
                 .catch(error => console.error("Error loading JSON content:", error));
         });
