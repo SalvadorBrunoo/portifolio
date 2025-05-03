@@ -31,7 +31,7 @@
         </article>
     </main>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
+        window.addEventListener("load", () => {
             const fileName = location.pathname.split("/").pop().replace(".html", ".json");
             fetch(fileName)
                 .then(response => response.json())
