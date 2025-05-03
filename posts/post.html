@@ -33,7 +33,7 @@
     </main>
     <script>
         window.addEventListener("load", () => {
-            const fileName = location.pathname.split("/").pop().replace(".html", ".json");
+            const fileName = `./${location.pathname.split("/").slice(-2).join("/").replace(".html", ".json")}`;
             fetch(fileName)
                 .then(response => {
                     if (!response.ok) {
