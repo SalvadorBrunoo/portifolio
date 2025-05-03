@@ -50,11 +50,19 @@
 
                     img.onload = () => {
                         EXIF.getData(img, function() {
-                            const exifTitle = EXIF.getTag(this, 'ImageDescription') || 'Untitled';
-                            const exifDate = EXIF.getTag(this, 'DateTime') || 'Unknown Date';
+                            try {
+                                const exifTitle = EXIF.getTag(this, 'ImageDescription') || 'Untitled';
+                                const exifDate = EXIF.getTag(this, 'DateTime') || 'Unknown Date';
 
-                            title.textContent = exifTitle;
-                            date.textContent = exifDate;
+                                console.log('EXIF Data:', { exifTitle, exifDate }); // Debugging log
+
+                                title.textContent = exifTitle;
+                                date.textContent = exifDate;
+                            } catch (exifError) {
+                                console.error('Error reading EXIF data:', exifError);
+                                title.textContent = 'Untitled';
+                                date.textContent = 'Unknown Date';
+                            }
                         });
                     };
 
