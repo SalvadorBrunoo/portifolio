@@ -57,10 +57,13 @@
 
                             const article = document.createElement('article');
 
+                            // Ensure the image path is constructed correctly
+                            const imagePath = `posts/${postFile.replace('.json', '.jpg')}`;
+
                             article.innerHTML = `
                                 <h2><a href="posts/post.html?file=posts/${postFile}">${post.section.title}</a></h2>
                                 <p><strong>Date:</strong> ${post.section.date}</p>
-                                <img src="posts/${folderName}/${post.section.imagePath}" alt="${post.section.title} Image" class="post-image">
+                                <img src="${imagePath}" alt="${post.section.title} Image" class="post-image">
                                 <p>${post.section.summary}</p>
                                 <hr>
                             `;
