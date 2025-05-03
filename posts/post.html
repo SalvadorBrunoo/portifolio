@@ -35,7 +35,12 @@
         window.addEventListener("load", () => {
             const fileName = location.pathname.split("/").pop().replace(".html", ".json");
             fetch(fileName)
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     // Populate section fields
                     const titleElement = document.querySelector("title");
@@ -56,7 +61,13 @@
                     const articlePre = document.querySelector("article pre");
                     if (articlePre) articlePre.textContent = data.article;
                 })
-                .catch(error => console.error("Error loading JSON content:", error));
+                .catch(error => {
+                    console.error("Error loading JSON content:", error);
+                    const mainElement = document.querySelector("main");
+                    if (mainElement) {
+                        mainElement.innerHTML = "<p>Error loading content. Please try again later.</p>";
+                    }
+                });
         });
     </script>
     <script>
