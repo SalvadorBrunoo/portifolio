@@ -1,7 +1,7 @@
 {
     "paths": [
-        "gallery/teste1.jpg",
-        "gallery/teste2.jpg",
-        "gallery/teste3.jpg"
+        "gallery/teste2/teste1.jpg",
+        "gallery/teste2/teste2.jpg",
+        "gallery/foto/foto.jpg"
     ]
 }
