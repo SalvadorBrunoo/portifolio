@@ -46,7 +46,7 @@
             }
 
             // Construct the correct URL for the JSON file
-            const fileUrl = new URL(fileName, window.location.origin).href;
+            const fileUrl = new URL(fileName, window.location.href).href;
 
             fetch(fileUrl)
                 .then(response => {
