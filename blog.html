@@ -43,12 +43,12 @@
                         // Fetch the list of post JSON files from posts.json
                         const postsListResponse = await fetch('posts/posts.json');
                         const postsList = await postsListResponse.json();
-                        const postFiles = postsList[0].posts;
+                        const postFiles = postsList.posts; // Updated to match the new structure
 
                         for (const postFile of postFiles) {
                             // Adjusted to include the folder structure
                             const folderName = postFile.replace('.json', '');
-                            const response = await fetch(`posts/${folderName}/${postFile}`);
+                            const response = await fetch(`posts/${postFile}`); // Updated path
                             if (!response.ok) {
                                 console.error(`Failed to fetch ${postFile}:`, response.statusText);
                                 continue;
@@ -58,7 +58,7 @@
                             const article = document.createElement('article');
 
                             article.innerHTML = `
-                                <h2><a href="posts/post.html?file=posts/${folderName}/${postFile}">${post.section.title}</a></h2>
+                                <h2><a href="posts/post.html?file=posts/${postFile}">${post.section.title}</a></h2>
                                 <p><strong>Date:</strong> ${post.section.date}</p>
                                 <img src="posts/${folderName}/${post.section.imagePath}" alt="${post.section.title} Image" class="post-image">
                                 <p>${post.section.summary}</p>
