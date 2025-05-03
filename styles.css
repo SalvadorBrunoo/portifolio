@@ -8,6 +8,11 @@ body, ul {
 header {
     background-color: #f4f4f4;
     padding: 10px 0;
+    height: 80px;
+}
+
+nav {
+    position: relative;
 }
 
 nav ul {
@@ -15,6 +20,7 @@ nav ul {
     display: flex;
     justify-content: center; /* Centers the menu */
     align-items: center;
+    height: 100%;
 }
 
 nav ul li {
@@ -30,4 +36,36 @@ nav ul li a {
 
 nav ul li a:hover {
     color: #007BFF; /* Highlight color on hover */
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+body.dark-mode a {
+    color: #bb86fc;
+}
+
+body.dark-mode header {
+    background-color: #1f1f1f;
+}
+
+/* Styling for the dark mode toggle button */
+#darkModeToggle {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #007BFF;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+#darkModeToggle:hover {
+    background-color: #0056b3;
 }

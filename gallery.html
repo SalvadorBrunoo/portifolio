@@ -15,6 +15,7 @@
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="gallery.html" class="active">Gallery</a></li>
             </ul>
+            <button id="darkModeToggle">Dark Mode</button>
         </nav>
     </header>
 
@@ -28,6 +29,17 @@
     </main>
 
     <script>
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const isDarkMode = localStorage.getItem('darkMode') === 'true';
+        if (isDarkMode) {
+            document.body.classList.add('dark-mode');
+        }
+
+        darkModeToggle.addEventListener('click', () => {
+            const isDark = document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+        });
+
         async function loadGallery() {
             const galleryContainer = document.querySelector('#gallery .gallery-container');
 

@@ -15,8 +15,22 @@
                 <li><a href="blog.html" class="active">Blog</a></li>
                 <li><a href="gallery.html">Gallery</a></li>
             </ul>
+            <button id="darkModeToggle">Dark Mode</button>
         </nav>
     </header>
+
+    <script>
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const isDarkMode = localStorage.getItem('darkMode') === 'true';
+        if (isDarkMode) {
+            document.body.classList.add('dark-mode');
+        }
+
+        darkModeToggle.addEventListener('click', () => {
+            const isDark = document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+        });
+    </script>
 
     <main>
         <section id="blog">
