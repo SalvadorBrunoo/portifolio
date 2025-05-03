@@ -38,7 +38,7 @@
                             const article = document.createElement('article');
 
                             article.innerHTML = `
-                                <h2><a href="posts/${post.file}">${post.section.title}</a></h2>
+                                <h2><a href="posts/${post.section.file}">${post.section.title}</a></h2>
                                 <p><strong>Date:</strong> ${post.section.date}</p>
                                 <img src="${post.section.imagePath}" alt="${post.section.title} Image" class="post-image">
                                 <p>${post.section.summary}</p>

@@ -3,7 +3,8 @@
     "title": "Post Title 1111",
     "date": "April 21, 2026",
     "imagePath": "../post1.jpg",
-    "summary": "Summary of the first blog post 1..."
+    "summary": "Summary of the first blog post 1...",
+    "file": "post1.html"
   },
   "article": "1"
 }
