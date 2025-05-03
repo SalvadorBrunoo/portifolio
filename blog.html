@@ -47,7 +47,7 @@
 
                         for (const postFile of postFiles) {
                             // Adjusted to include the folder structure
-                            const folderName = postFile.replace('.json', '');
+                            const folderName = postFile.split('/')[0]; // Extract the folder name correctly
                             const response = await fetch(`posts/${postFile}`); // Updated path
                             if (!response.ok) {
                                 console.error(`Failed to fetch ${postFile}:`, response.statusText);
