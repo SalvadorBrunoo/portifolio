@@ -32,27 +32,33 @@
             const galleryContainer = document.querySelector('#gallery .gallery-container');
 
             try {
-                // Fetch the list of image JSON files from images.json
+                // Fetch the list of image paths from gallery.json
                 const imagesListResponse = await fetch('gallery/gallery.json');
                 const imagesList = await imagesListResponse.json();
-                const imageFiles = imagesList[0].images;
+                const imagePaths = imagesList.paths;
 
-                for (const imageFile of imageFiles) {
-                    // Adjusted to include the folder structure
-                    const folderName = imageFile.replace('.json', '');
-                    const response = await fetch(`gallery/${folderName}/${imageFile}`);
-                    if (!response.ok) {
-                        console.error(`Failed to fetch ${imageFile}:`, response.statusText);
+                for (const imagePath of imagePaths) {
+                    // Extract folder name from the image path
+                    const folderName = imagePath.split('/')[1];
+                    const metadataResponse = await fetch(`gallery/${folderName}/${folderName}.json`);
+
+                    if (!metadataResponse.ok) {
+                        console.error(`Failed to fetch metadata for ${folderName}:`, metadataResponse.statusText);
                         continue;
                     }
-                    const imageData = await response.json();
 
-                    const imgElement = document.createElement('img');
-                    imgElement.src = `images/${folderName}/${imageData.imagePath}`;
-                    imgElement.alt = imageData.title;
-                    imgElement.classList.add('gallery-image');
+                    const metadata = await metadataResponse.json();
 
-                    galleryContainer.appendChild(imgElement);
+                    const imageWrapper = document.createElement('div');
+                    imageWrapper.classList.add('image-wrapper');
+
+                    imageWrapper.innerHTML = `
+                        <h2>${metadata.title}</h2>
+                        <p><strong>Date:</strong> ${metadata.date}</p>
+                        <img src="${imagePath}" alt="${metadata.title}" class="gallery-image">
+                    `;
+
+                    galleryContainer.appendChild(imageWrapper);
                 }
             } catch (error) {
                 console.error("Error loading images JSON:", error);
