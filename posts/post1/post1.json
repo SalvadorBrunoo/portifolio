@@ -2,7 +2,7 @@
   "section": {
     "title": "Post Title 1111",
     "date": "April 21, 2026",
-    "imagePath": "post1.jpg",
+    "imagePath": "post1/post1.jpg",
     "summary": "Summary of the first blog post 1..."
   },
   "article": "1"
