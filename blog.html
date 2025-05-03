@@ -37,7 +37,7 @@
             <h1>Blog</h1>
             <script>
                 async function listJsonFiles() {
-                    const response = await fetch('posts/posts.json');
+                    const response = await fetch('./posts/posts.json'); // Ensure relative path is correct
                     if (!response.ok) {
                         throw new Error(`Failed to fetch posts.json: ${response.statusText}`);
                     }
@@ -45,7 +45,7 @@
                     if (!postsList.posts || !Array.isArray(postsList.posts)) {
                         throw new Error('Invalid posts.json format: "posts" property is missing or not an array');
                     }
-                    return postsList.posts.map(post => `posts/${post}`);
+                    return postsList.posts.map(post => `./posts/${post}`); // Ensure relative path is correct
                 }
 
                 async function loadPosts() {
