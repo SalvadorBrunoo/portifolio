@@ -31,24 +31,34 @@
             localStorage.setItem('darkMode', isDark);
         });
     </script>
-
+    
     <main>
         <section id="blog">
             <h1>Blog</h1>
             <script>
+                async function listJsonFiles(dir) {
+                    const response = await fetch(`${dir}`);
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch directory listing: ${response.statusText}`);
+                    }
+                    const text = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(text, 'text/html');
+                    const links = Array.from(doc.querySelectorAll('a'));
+                    return links
+                        .map(link => link.getAttribute('href'))
+                        .filter(href => href.endsWith('.json'))
+                        .map(jsonFile => `${dir}/${jsonFile}`);
+                }
+
                 async function loadPosts() {
                     const postsContainer = document.querySelector('#blog');
 
                     try {
-                        // Fetch the list of post JSON files from posts.json
-                        const postsListResponse = await fetch('posts/posts.json');
-                        const postsList = await postsListResponse.json();
-                        const postFiles = postsList[0].posts;
+                        const jsonFiles = await listJsonFiles('posts');
 
-                        for (const postFile of postFiles) {
-                            // Adjusted to include the folder structure
-                            const folderName = postFile.replace('.json', '');
-                            const response = await fetch(`posts/${folderName}/${postFile}`);
+                        for (const postFile of jsonFiles) {
+                            const response = await fetch(postFile);
                             if (!response.ok) {
                                 console.error(`Failed to fetch ${postFile}:`, response.statusText);
                                 continue;
@@ -58,9 +68,9 @@
                             const article = document.createElement('article');
 
                             article.innerHTML = `
-                                <h2><a href="posts/post.html?file=posts/${folderName}/${postFile}">${post.section.title}</a></h2>
+                                <h2><a href="posts/post.html?file=${postFile}">${post.section.title}</a></h2>
                                 <p><strong>Date:</strong> ${post.section.date}</p>
-                                <img src="posts/${folderName}/${post.section.imagePath}" alt="${post.section.title} Image" class="post-image">
+                                <img src="${post.section.imagePath}" alt="${post.section.title} Image" class="post-image">
                                 <p>${post.section.summary}</p>
                                 <hr>
                             `;
