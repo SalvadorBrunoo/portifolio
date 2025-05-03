@@ -37,25 +37,27 @@
             <h1>Blog</h1>
             <script>
                 async function listJsonFiles() {
-                    const response = await fetch('./posts/posts.json'); // Ensure relative path is correct
+                    const response = await fetch('posts/posts.json');
                     if (!response.ok) {
                         throw new Error(`Failed to fetch posts.json: ${response.statusText}`);
                     }
                     const postsList = await response.json();
-                    if (!postsList.posts || !Array.isArray(postsList.posts)) {
-                        throw new Error('Invalid posts.json format: "posts" property is missing or not an array');
-                    }
-                    return postsList.posts.map(post => `posts/${post}`); // Ensure relative path is correct
+                    return postsList.posts.map(post => `posts/${post}`);
                 }
 
                 async function loadPosts() {
                     const postsContainer = document.querySelector('#blog');
 
                     try {
-                        const jsonFiles = await listJsonFiles();
+                        // Fetch the list of post JSON files from posts.json
+                        const postsListResponse = await fetch('posts/posts.json');
+                        const postsList = await postsListResponse.json();
+                        const postFiles = postsList[0].posts;
 
-                        for (const postFile of jsonFiles) {
-                            const response = await fetch(postFile);
+                        for (const postFile of postFiles) {
+                            // Adjusted to include the folder structure
+                            const folderName = postFile.replace('.json', '');
+                            const response = await fetch(`posts/${folderName}/${postFile}`);
                             if (!response.ok) {
                                 console.error(`Failed to fetch ${postFile}:`, response.statusText);
                                 continue;
@@ -65,9 +67,9 @@
                             const article = document.createElement('article');
 
                             article.innerHTML = `
-                                <h2><a href="posts/post.html?file=${postFile}">${post.section.title}</a></h2>
+                                <h2><a href="posts/post.html?file=posts/${folderName}/${postFile}">${post.section.title}</a></h2>
                                 <p><strong>Date:</strong> ${post.section.date}</p>
-                                <img src="${post.section.imagePath}" alt="${post.section.title} Image" class="post-image">
+                                <img src="posts/${folderName}/${post.section.imagePath}" alt="${post.section.title} Image" class="post-image">
                                 <p>${post.section.summary}</p>
                                 <hr>
                             `;
