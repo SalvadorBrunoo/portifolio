@@ -24,22 +24,32 @@
             <script>
                 async function loadPosts() {
                     const postsContainer = document.querySelector('#blog');
-                    const response = await fetch('posts/posts.json');
-                    const posts = await response.json();
 
-                    posts.forEach(post => {
-                        const article = document.createElement('article');
+                    try {
+                        // Fetch the list of post JSON files from posts.json
+                        const postsListResponse = await fetch('posts/posts.json');
+                        const postsList = await postsListResponse.json();
+                        const postFiles = postsList[0].posts;
 
-                        article.innerHTML = `
-                            <h2><a href="posts/${post.file}">${post.title}</a></h2>
-                            <p><strong>Date:</strong> ${post.date}</p>
-                            <img src="${post.image}" alt="${post.title} Image" class="post-image">
-                            <p>${post.summary}</p>
-                            <hr>
-                        `;
+                        for (const postFile of postFiles) {
+                            const response = await fetch(`posts/${postFile}`);
+                            const post = await response.json();
 
-                        postsContainer.appendChild(article);
-                    });
+                            const article = document.createElement('article');
+
+                            article.innerHTML = `
+                                <h2><a href="posts/${post.file}">${post.section.title}</a></h2>
+                                <p><strong>Date:</strong> ${post.section.date}</p>
+                                <img src="${post.section.imagePath}" alt="${post.section.title} Image" class="post-image">
+                                <p>${post.section.summary}</p>
+                                <hr>
+                            `;
+
+                            postsContainer.appendChild(article);
+                        }
+                    } catch (error) {
+                        console.error("Error loading posts JSON:", error);
+                    }
                 }
 
                 loadPosts();
