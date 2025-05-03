@@ -45,7 +45,10 @@
                 return;
             }
 
-            fetch(fileName)
+            // Construct the correct URL for the JSON file
+            const fileUrl = new URL(fileName, window.location.origin).href;
+
+            fetch(fileUrl)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
