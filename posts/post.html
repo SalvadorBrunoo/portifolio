@@ -47,7 +47,7 @@
 
             // Construct the correct URL for the JSON file
             const fileUrl = new URL(fileName, window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '/')).href.replace('/posts/posts/', '/posts/');
-            console.log("Fetching JSON from:", fileUrl); // Debugging line
+
             fetch(fileUrl)
                 .then(response => {
                     if (!response.ok) {
