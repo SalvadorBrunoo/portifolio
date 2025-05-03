@@ -33,7 +33,18 @@
     </main>
     <script>
         window.addEventListener("load", () => {
-            const fileName = `./${location.pathname.split("/").slice(-2).join("/").replace(".html", ".json")}`;
+            const urlParams = new URLSearchParams(window.location.search);
+            const fileName = urlParams.get("file");
+
+            if (!fileName) {
+                console.error("No file parameter provided in the URL.");
+                const mainElement = document.querySelector("main");
+                if (mainElement) {
+                    mainElement.innerHTML = "<p>Error loading content. Please try again later.</p>";
+                }
+                return;
+            }
+
             fetch(fileName)
                 .then(response => {
                     if (!response.ok) {
