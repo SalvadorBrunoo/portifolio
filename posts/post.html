@@ -68,7 +68,7 @@
                     if (dateElement && dateElement.nextSibling) {
                         dateElement.nextSibling.textContent = ` ${data.section.date}`;
                     }
-                    if (postImage) postImage.src = data.section.imagePath;
+                    if (postImage) postImage.src = fileUrl.replace('.json', '.jpg'); // Adjusted to include the folder structure
                     if (summaryElement) summaryElement.textContent = data.section.summary;
 
                     // Populate article content
