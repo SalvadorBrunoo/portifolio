@@ -45,7 +45,7 @@
                     if (!postsList.posts || !Array.isArray(postsList.posts)) {
                         throw new Error('Invalid posts.json format: "posts" property is missing or not an array');
                     }
-                    return postsList.posts.map(post => `./posts/${post}`); // Ensure relative path is correct
+                    return postsList.posts.map(post => `posts/${post}`); // Ensure relative path is correct
                 }
 
                 async function loadPosts() {
