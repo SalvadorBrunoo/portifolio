@@ -11,8 +11,8 @@
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
                 <li><a href="gallery.html">Gallery</a></li>
             </ul>
         </nav>
@@ -21,14 +21,29 @@
     <main>
         <section id="blog">
             <h1>Blog</h1>
-            <article>
-                <h2>Post Title 1</h2>
-                <p>Summary of the blog post...</p>
-            </article>
-            <article>
-                <h2>Post Title 2</h2>
-                <p>Summary of the blog post...</p>
-            </article>
+            <script>
+                async function loadPosts() {
+                    const postsContainer = document.querySelector('#blog');
+                    const response = await fetch('posts/posts.json');
+                    const posts = await response.json();
+
+                    posts.forEach(post => {
+                        const article = document.createElement('article');
+
+                        article.innerHTML = `
+                            <h2><a href="posts/${post.file}">${post.title}</a></h2>
+                            <p><strong>Date:</strong> ${post.date}</p>
+                            <img src="${post.image}" alt="${post.title} Image" class="post-image">
+                            <p>${post.summary}</p>
+                            <hr>
+                        `;
+
+                        postsContainer.appendChild(article);
+                    });
+                }
+
+                loadPosts();
+            </script>
         </section>
     </main>
 </body>
