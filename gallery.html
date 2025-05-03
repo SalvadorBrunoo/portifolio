@@ -27,7 +27,6 @@
         </section>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
     <script>
         async function loadGallery() {
             const galleryContainer = document.querySelector('#gallery');
@@ -41,34 +40,15 @@
                     const div = document.createElement('div');
                     div.classList.add('gallery-item');
 
-                    const img = document.createElement('img');
-                    img.src = imagePath;
-                    img.alt = "Gallery Image";
+                    // Fetch metadata from the image file
+                    const metadataResponse = await fetch(imagePath.replace('.jpg', '.json'));
+                    const metadata = await metadataResponse.json();
 
-                    const title = document.createElement('h3');
-                    const date = document.createElement('p');
-
-                    img.onload = () => {
-                        EXIF.getData(img, function() {
-                            try {
-                                const exifTitle = EXIF.getTag(this, 'ImageDescription') || 'Untitled';
-                                const exifDate = EXIF.getTag(this, 'DateTime') || 'Unknown Date';
-
-                                console.log('EXIF Data:', { exifTitle, exifDate }); // Debugging log
-
-                                title.textContent = exifTitle;
-                                date.textContent = exifDate;
-                            } catch (exifError) {
-                                console.error('Error reading EXIF data:', exifError);
-                                title.textContent = 'Untitled';
-                                date.textContent = 'Unknown Date';
-                            }
-                        });
-                    };
-
-                    div.appendChild(img);
-                    div.appendChild(title);
-                    div.appendChild(date);
+                    div.innerHTML = `
+                        <img src="${imagePath}" alt="Gallery Image">
+                        <h3>${metadata.title}</h3>
+                        <p>${metadata.date}</p>
+                    `;
 
                     galleryContainer.appendChild(div);
                 }
