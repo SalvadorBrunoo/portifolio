@@ -33,5 +33,26 @@
             </pre>
         </article>
     </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const contentElement = document.querySelector("pre");
+            const filePath = "post1.txt"; // Adjust dynamically for each post
+
+            fetch(filePath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch ${filePath}`);
+                    }
+                    return response.text();
+                })
+                .then(content => {
+                    contentElement.textContent = content;
+                })
+                .catch(error => {
+                    console.error("Error loading post content:", error);
+                    contentElement.textContent = "Error loading content.";
+                });
+        });
+    </script>
 </body>
 </html>
